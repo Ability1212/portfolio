@@ -1,0 +1,535 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<<
+  /Type /Page
+  /Parent 2 0 R
+  /MediaBox [0 0 595 842]
+  /Resources <<
+    /Font <<
+      /F1 4 0 R
+      /F2 5 0 R
+      /F3 6 0 R
+    >>
+  >>
+  /Contents 7 0 R
+>>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>
+endobj
+7 0 obj
+<< /Length 7950 >>
+stream
+q
+% ============================================================================
+% 1. EXECUTIVE DARK OBSIDIAN HEADER BANNER + EMERALD ACCENT BAR
+% ============================================================================
+0.035 0.065 0.055 rg
+0 734 595 108 re f
+
+0.063 0.725 0.506 rg
+0 730 595 4 re f
+
+% Decorative subtle top-right emerald badge box in header
+0.065 0.14 0.115 rg
+435 790 124 22 re f
+0.204 0.827 0.600 RG
+0.7 w
+435 790 124 22 re S
+
+BT
+/F3 8 Tf
+0.43 0.91 0.72 rg
+445 798 Td
+(AVAILABLE FOR HIRE) Tj
+ET
+
+% Name & Title in Header
+BT
+/F2 20 Tf
+1 1 1 rg
+36 796 Td
+(MUHAMMAD UBAIDILAH MAHENDRA) Tj
+
+/F2 10 Tf
+0.204 0.827 0.600 rg
+0 -16 Td
+(FULL-STACK SOFTWARE ENGINEER   |   GO, LARAVEL, ANGULAR & NEXT.JS) Tj
+
+/F1 8.5 Tf
+0.82 0.88 0.85 rg
+0 -16 Td
+(Malang, East Java, Indonesia   |   Email: ubaidilahmahendra1234@gmail.com   |   IG: @mu_mahendra1605) Tj
+0 -12 Td
+(GitHub: github.com/Ability1212   |   LinkedIn: linkedin.com/in/muhammad-ubaidilah-mahendra-7aba83246) Tj
+ET
+
+% ============================================================================
+% 2. HRD 6-SECOND SCAN: 4 QUANTIFIABLE IMPACT METRIC CARDS
+% ============================================================================
+% Card 1
+0.945 0.988 0.965 rg
+36 676 123 40 re f
+0.063 0.725 0.506 rg
+36 676 3 40 re f
+
+% Card 2
+0.945 0.988 0.965 rg
+169 676 123 40 re f
+0.063 0.725 0.506 rg
+169 676 3 40 re f
+
+% Card 3
+0.945 0.988 0.965 rg
+302 676 123 40 re f
+0.063 0.725 0.506 rg
+302 676 3 40 re f
+
+% Card 4
+0.945 0.988 0.965 rg
+435 676 124 40 re f
+0.063 0.725 0.506 rg
+435 676 3 40 re f
+
+BT
+/F2 12 Tf
+0.024 0.373 0.275 rg
+46 699 Td
+(3+ YEARS) Tj
+133 0 Td
+(10+ SYSTEMS) Tj
+133 0 Td
+(-60% LATENCY) Tj
+133 0 Td
+(+45% VELOCITY) Tj
+
+/F1 7.8 Tf
+0.20 0.28 0.33 rg
+-399 -13 Td
+(Production Engineering Exp) Tj
+133 0 Td
+(Shipped to Production) Tj
+133 0 Td
+(Go + Redis API Speedup) Tj
+133 0 Td
+(Sprint Reporting Saved) Tj
+ET
+
+% ============================================================================
+% 3. EXECUTIVE SUMMARY
+% ============================================================================
+0.063 0.725 0.506 rg
+36 649 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+36 644 523 0 m 559 644 l S
+
+BT
+/F2 10 Tf
+0.024 0.373 0.275 rg
+45 650 Td
+(EXECUTIVE SUMMARY) Tj
+
+/F1 8.9 Tf
+0.15 0.20 0.25 rg
+-9 -16 Td
+(Results-driven Full-Stack Software Engineer with 3+ years of hands-on production experience architecting scalable) Tj
+0 -12 Td
+(web platforms, high-concurrency microservices, and responsive enterprise dashboards. Proven track record of cutting) Tj
+0 -12 Td
+(API response times by up to 60% and reducing page load latency by 42% across 10+ production applications using) Tj
+0 -12 Td
+(Golang, PHP \(Laravel\), Python \(Django\), Angular, Next.js, MySQL, PostgreSQL, MongoDB, and Redis.) Tj
+ET
+
+% ============================================================================
+% 4. CORE TECHNICAL COMPETENCIES (STRUCTURED MATRIX)
+% ============================================================================
+0.063 0.725 0.506 rg
+36 575 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+36 570 523 0 m 559 570 l S
+
+% Subtle background rows for skills matrix
+0.973 0.984 0.980 rg
+36 551 523 14 re f
+36 523 523 14 re f
+
+BT
+/F2 10 Tf
+0.024 0.373 0.275 rg
+45 576 Td
+(TECHNICAL SKILLS & ARCHITECTURE MATRIX) Tj
+
+/F2 8.6 Tf
+0.06 0.12 0.10 rg
+-4 -19 Td
+(Backend & APIs) Tj
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+105 0 Td
+(:  Golang \(Go\), PHP \(Laravel\), Node.js, Python \(Django\), RESTful APIs, Microservices, WebSockets) Tj
+
+/F2 8.6 Tf
+0.06 0.12 0.10 rg
+-105 -14 Td
+(Frontend & UI) Tj
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+105 0 Td
+(:  Angular, Next.js \(App Router / SSR\), React, TypeScript, JavaScript \(ES6+\), Tailwind CSS, Bootstrap) Tj
+
+/F2 8.6 Tf
+0.06 0.12 0.10 rg
+-105 -14 Td
+(Databases & Cache) Tj
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+105 0 Td
+(:  MySQL, PostgreSQL, MongoDB, Redis \(In-Memory Caching\), Query Indexing & Hybrid Data Modeling) Tj
+
+/F2 8.6 Tf
+0.06 0.12 0.10 rg
+-105 -14 Td
+(DevOps & Delivery) Tj
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+105 0 Td
+(:  Docker, RabbitMQ, GitLab CI/CD, Git, Agile / Scrum, Technical Docs \(BRD, FSD, API Contracts\)) Tj
+ET
+
+% ============================================================================
+% 5. PROFESSIONAL WORK EXPERIENCE
+% ============================================================================
+0.063 0.725 0.506 rg
+36 488 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+36 483 523 0 m 559 483 l S
+
+BT
+/F2 10 Tf
+0.024 0.373 0.275 rg
+45 489 Td
+(PROFESSIONAL WORK EXPERIENCE) Tj
+ET
+
+% --- Role 1 ---
+0.93 0.98 0.95 rg
+455 465 104 13 re f
+BT
+/F2 9.5 Tf
+0.05 0.10 0.08 rg
+36 468 Td
+(Full-Stack Web Developer) Tj
+/F2 9.2 Tf
+0.04 0.55 0.38 rg
+128 0 Td
+(  |   Venturo Professional Programmer) Tj
+/F3 7.8 Tf
+0.024 0.373 0.275 rg
+297 0 Td
+(Oct 2023 - Present) Tj
+
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+-415 -13 Td
+(o  Translate complex business requirements into clear technical specifications \(BRD, FSD, and REST API contracts\).) Tj
+0 -11.5 Td
+(o  Architect and maintain high-concurrency backend services while optimizing SQL/NoSQL queries across products.) Tj
+0 -11.5 Td
+(o  Lead code reviews, automated testing workflows, and continuous deployment pipelines via GitLab CI/CD.) Tj
+ET
+
+% --- Role 2 ---
+0.95 0.96 0.97 rg
+455 412 104 13 re f
+BT
+/F2 9.5 Tf
+0.05 0.10 0.08 rg
+36 415 Td
+(Frontend Web Developer) Tj
+/F2 9.2 Tf
+0.04 0.55 0.38 rg
+123 0 Td
+(  |   Venturo Professional Programmer) Tj
+/F3 7.8 Tf
+0.25 0.32 0.38 rg
+302 0 Td
+(Feb 2023 - Sep 2023) Tj
+
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+-415 -13 Td
+(o  Engineered responsive enterprise SPA modules for logistics, operational tracking, and executive dashboards.) Tj
+0 -11.5 Td
+(o  Improved Core Web Vitals and reduced initial page load latency by 42% via route code splitting & lazy loading.) Tj
+0 -11.5 Td
+(o  Integrated real-time operational tracking updates and interactive data views using WebSocket streams.) Tj
+ET
+
+% --- Role 3 ---
+0.95 0.96 0.97 rg
+455 359 104 13 re f
+BT
+/F2 9.5 Tf
+0.05 0.10 0.08 rg
+36 362 Td
+(Software Engineer Intern) Tj
+/F2 9.2 Tf
+0.04 0.55 0.38 rg
+123 0 Td
+(  |   Venturo Professional Programmer) Tj
+/F3 7.8 Tf
+0.25 0.32 0.38 rg
+302 0 Td
+(Aug 2022 - Jan 2023) Tj
+
+/F1 8.6 Tf
+0.18 0.24 0.29 rg
+-415 -13 Td
+(o  Built foundational features for internal Agile project management and daily team productivity web platforms.) Tj
+0 -11.5 Td
+(o  Developed core modules for the national training & accreditation platform \(Sislatkernas\) for KOMINFO.) Tj
+0 -11.5 Td
+(o  Implemented relational and NoSQL data persistence layers across MySQL, PostgreSQL, MongoDB, and Redis.) Tj
+ET
+
+% ============================================================================
+% 6. SELECTED PRODUCTION PROJECTS (WITH QUANTIFIABLE BUSINESS IMPACT)
+% ============================================================================
+0.063 0.725 0.506 rg
+36 303 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+36 298 523 0 m 559 298 l S
+
+BT
+/F2 10 Tf
+0.024 0.373 0.275 rg
+45 304 Td
+(SELECTED PRODUCTION PROJECTS & KEY IMPACT) Tj
+ET
+
+% Project 1 Box
+0.975 0.988 0.982 rg
+36 254 523 36 re f
+0.063 0.725 0.506 rg
+36 254 2.5 36 re f
+
+BT
+/F2 9.2 Tf
+0.05 0.10 0.08 rg
+44 278 Td
+(Space - Venturo \(Agile Project Management\)) Tj
+/F3 7.8 Tf
+0.04 0.55 0.38 rg
+215 0 Td
+([Laravel, Angular, MySQL, MongoDB, Tailwind]) Tj
+/F3 7.8 Tf
+0.30 0.38 0.44 rg
+198 0 Td
+(space.venturo.id) Tj
+
+/F1 8.4 Tf
+0.18 0.24 0.29 rg
+-413 -12 Td
+(o  Cut weekly sprint reporting overhead by 45% across 10+ engineering squads with automated velocity burndown charts.) Tj
+0 -10.5 Td
+(o  Optimized complex Kanban board and backlog queries, reducing board load latency by 38% for 1,000+ task workspaces.) Tj
+ET
+
+% Project 2 Box
+0.975 0.988 0.982 rg
+36 212 523 36 re f
+0.063 0.725 0.506 rg
+36 212 2.5 36 re f
+
+BT
+/F2 9.2 Tf
+0.05 0.10 0.08 rg
+44 236 Td
+(Timebox - Venturo \(Time-Blocking Productivity\)) Tj
+/F3 7.8 Tf
+0.04 0.55 0.38 rg
+215 0 Td
+([Laravel, Angular, MySQL, MongoDB, Tailwind]) Tj
+/F3 7.8 Tf
+0.30 0.38 0.44 rg
+190 0 Td
+(timebox.venturo.id) Tj
+
+/F1 8.4 Tf
+0.18 0.24 0.29 rg
+-405 -12 Td
+(o  Boosted daily task completion rates by 35% through structured time-blocking and automated deadline telemetry.) Tj
+0 -10.5 Td
+(o  Designed indexed MySQL & MongoDB aggregation pipelines achieving sub-100ms daily/weekly schedule synchronization.) Tj
+ET
+
+% Project 3 Box
+0.975 0.988 0.982 rg
+36 170 523 36 re f
+0.063 0.725 0.506 rg
+36 170 2.5 36 re f
+
+BT
+/F2 9.2 Tf
+0.05 0.10 0.08 rg
+44 194 Td
+(Blessing Academy \(High-Concurrency EdTech\)) Tj
+/F3 7.8 Tf
+0.04 0.55 0.38 rg
+215 0 Td
+([Golang, Next.js, PostgreSQL, Redis, Tailwind]) Tj
+/F3 7.8 Tf
+0.30 0.38 0.44 rg
+183 0 Td
+(blessing.venturo.pro) Tj
+
+/F1 8.4 Tf
+0.18 0.24 0.29 rg
+-398 -12 Td
+(o  Slashed course catalog & student progress API latency by 60% using Golang concurrent services backed by Redis cache.) Tj
+0 -10.5 Td
+(o  Eliminated 100% of manual grading bottlenecks via instant automated quiz grading & QR-verified digital certificates.) Tj
+ET
+
+% ============================================================================
+% 7. TWO-COLUMN BOTTOM SECTION: EDUCATION (LEFT) & CERTIFICATIONS (RIGHT)
+% ============================================================================
+% Left Column Header: Education
+0.063 0.725 0.506 rg
+36 146 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+36 141 252 0 m 288 141 l S
+
+% Right Column Header: Certifications
+0.063 0.725 0.506 rg
+306 146 3.5 12 re f
+0.84 0.89 0.87 RG
+0.8 w
+306 141 253 0 m 559 141 l S
+
+BT
+/F2 10 Tf
+0.024 0.373 0.275 rg
+45 147 Td
+(EDUCATION) Tj
+270 0 Td
+(LICENSES & CERTIFICATIONS) Tj
+ET
+
+% Left Column Content: Education
+BT
+/F2 8.8 Tf
+0.05 0.10 0.08 rg
+36 126 Td
+(Institut Asia Malang \(S1 IT\)) Tj
+/F3 7.5 Tf
+0.04 0.55 0.38 rg
+0 -11 Td
+(Sep 2026 - Present  |  Employee Class \(Kelas Karyawan\)) Tj
+/F1 8.2 Tf
+0.20 0.26 0.31 rg
+0 -11 Td
+(Active undergraduate student majoring in IT while) Tj
+0 -10 Td
+(working full-time as Software Engineer at Venturo.) Tj
+
+/F2 8.8 Tf
+0.05 0.10 0.08 rg
+0 -16 Td
+(SMK Negeri 11 Malang) Tj
+/F3 7.5 Tf
+0.04 0.55 0.38 rg
+0 -11 Td
+(2020 - 2023  |  Rekayasa Perangkat Lunak \(RPL\)) Tj
+/F1 8.2 Tf
+0.20 0.26 0.31 rg
+0 -11 Td
+(3-year Software Engineering specialization in OOP,) Tj
+0 -10 Td
+(relational databases, and full-stack web development.) Tj
+ET
+
+% Right Column Content: Certifications
+BT
+/F2 8.5 Tf
+0.05 0.10 0.08 rg
+306 126 Td
+(o  BNSP Junior Web Developer Certification) Tj
+/F1 7.8 Tf
+0.30 0.38 0.44 rg
+10 -10.5 Td
+(Badan Nasional Sertifikasi Profesi \(BNSP\)  |  2023) Tj
+
+/F2 8.5 Tf
+0.05 0.10 0.08 rg
+-10 -13.5 Td
+(o  Back-End Microservices with Go \(Golang\)) Tj
+/F1 7.8 Tf
+0.30 0.38 0.44 rg
+10 -10.5 Td
+(Dicoding Indonesia / Google Developers  |  2024) Tj
+
+/F2 8.5 Tf
+0.05 0.10 0.08 rg
+-10 -13.5 Td
+(o  Enterprise Full-Stack Laravel & Angular) Tj
+/F1 7.8 Tf
+0.30 0.38 0.44 rg
+10 -10.5 Td
+(Venturo Engineering Academy  |  2024) Tj
+
+/F2 8.5 Tf
+0.05 0.10 0.08 rg
+-10 -13.5 Td
+(o  SQL, NoSQL & Redis Performance Architecture) Tj
+/F1 7.8 Tf
+0.30 0.38 0.44 rg
+10 -10.5 Td
+(HackerRank / Cloud Native Credentials  |  2025) Tj
+ET
+
+% Bottom Footer Bar
+0.035 0.065 0.055 rg
+0 0 595 22 re f
+BT
+/F3 7.5 Tf
+0.65 0.85 0.76 rg
+125 8 Td
+(PORTFOLIO & LIVE CASE STUDIES:  github.com/Ability1212  |  Malang, Indonesia) Tj
+ET
+Q
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000275 00000 n 
+0000000369 00000 n 
+0000000468 00000 n 
+0000000566 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+8568
+%%EOF

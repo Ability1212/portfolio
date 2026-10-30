@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Muhammad Ubaidilah Mahendra (Full-Stack Software Engineer)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --obsidian: #09110e;
+      --primary: #065f46;
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --text-dark: #0f172a;
+      --text-body: #334155;
+      --text-muted: #64748b;
+      --border: #d1fae5;
+      --surface-mint: #f0fdf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-dark);
+      background: #e2e8f0;
+      line-height: 1.52;
+      padding: 28px 16px;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cv-toolbar {
+      max-width: 850px;
+      margin: 0 auto 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--obsidian);
+      color: #f8fafc;
+      padding: 14px 22px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    }
+
+    .cv-toolbar-info {
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }
+
+    .cv-toolbar-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-print {
+      background: var(--accent);
+      color: #03140e;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-print:hover {
+      background: var(--accent-light);
+    }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.08);
+      color: #f8fafc;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .cv-sheet {
+      max-width: 850px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+    }
+
+    /* Executive Dark Obsidian Header */
+    .cv-banner {
+      background: var(--obsidian);
+      color: #ffffff;
+      padding: 32px 42px 26px;
+      border-bottom: 4px solid var(--accent);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .cv-name {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    .cv-role {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 5px;
+    }
+
+    .cv-badge-hire {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 6px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .cv-contact-strip {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 18px;
+      font-size: 12px;
+      color: #cbd5e1;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cv-contact-strip a {
+      color: #e2e8f0;
+      text-decoration: none;
+    }
+
+    .cv-contact-strip a:hover {
+      color: var(--accent-light);
+    }
+
+    .cv-body {
+      padding: 26px 42px 32px;
+    }
+
+    @media (max-width: 640px) {
+
+      .cv-banner,
+      .cv-body {
+        padding: 24px 20px;
+      }
+    }
+
+    /* 4 Impact Metric Cards (HRD 6-Second Scan) */
+    .cv-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .cv-metrics-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cv-metric-card {
+      background: var(--surface-mint);
+      border-left: 3.5px solid var(--accent);
+      padding: 10px 12px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .cv-metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      display: block;
+    }
+
+    .cv-metric-lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-body);
+    }
+
+    /* Section */
+    .cv-section {
+      margin-bottom: 20px;
+    }
+
+    .cv-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .cv-section-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 5px;
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cv-section-title::before {
+      content: '';
+      width: 4px;
+      height: 13px;
+      background: var(--accent);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    .cv-summary {
+      font-size: 13px;
+      color: var(--text-body);
+      line-height: 1.6;
+    }
+
+    /* Skills Matrix */
+    .cv-skills-grid {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 6px 14px;
+      font-size: 12.5px;
+    }
+
+    .cv-skill-cat {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .cv-skill-items {
+      color: var(--text-body);
+    }
+
+    /* Entries */
+    .cv-entry {
+      margin-bottom: 13px;
+    }
+
+    .cv-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .cv-entry-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .cv-entry-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .cv-entry-sub {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .cv-entry-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--surface-mint);
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .cv-bullets {
+      list-style: disc;
+      padding-left: 18px;
+      font-size: 12.5px;
+      color: var(--text-body);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cv-project-box {
+      background: #f8fafc;
+      border-left: 3px solid var(--accent);
+      padding: 9px 12px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 9px;
+    }
+
+    .cv-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .cv-two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .cv-toolbar {
+        display: none !important;
+      }
+
+      .cv-sheet {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cv-toolbar">
+    <div class="cv-toolbar-info">
+      <strong>Executive HRD-Ready Resume</strong> &middot; Klik <em>Print / Save as PDF</em> untuk mengunduh/mencetak
+      CV.
+    </div>
+    <div class="cv-toolbar-actions">
+      <a href="./index.html" class="btn-back">← Back to Portfolio</a>
+      <button type="button" class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <main class="cv-sheet">
+    <!-- Dark Obsidian & Emerald Header -->
+    <header class="cv-banner">
+      <div>
+        <h1 class="cv-name">MUHAMMAD UBAIDILAH MAHENDRA</h1>
+        <p class="cv-role">Full-Stack Software Engineer &middot; Go, Laravel, Angular &amp; Next.js</p>
+      </div>
+      <span class="cv-badge-hire">● AVAILABLE FOR HIRE</span>
+      <div class="cv-contact-strip">
+        <span>📍 Malang, East Java, ID</span>
+        <span>✉️ <a href="mailto:ubaidilahmahendra1234@gmail.com">ubaidilahmahendra1234@gmail.com</a></span>
+        <span>💻 <a href="https://github.com/Ability1212" target="_blank"
+            rel="noopener">github.com/Ability1212</a></span>
+        <span>💼 <a href="https://www.linkedin.com/in/muhammad-ubaidilah-mahendra-7aba83246/" target="_blank"
+            rel="noopener">LinkedIn Profile</a></span>
+        <span>📸 <a href="https://www.instagram.com/mu_mahendra1605/" target="_blank"
+            rel="noopener">@mu_mahendra1605</a></span>
+      </div>
+    </header>
+
+    <div class="cv-body">
+      <!-- 4 HRD Impact Metric Cards -->
+      <div class="cv-metrics-row">
+        <div class="cv-metric-card">
+          <span class="cv-metric-val">3+ YEARS</span>
+          <span class="cv-metric-lbl">Production Engineering Exp</span>
+        </div>
+        <div class="cv-metric-card">
+          <span class="cv-metric-val">10+ SYSTEMS</span>
+          <span class="cv-metric-lbl">Shipped to Production</span>
+        </div>
+        <div class="cv-metric-card">
+          <span class="cv-metric-val">-60% LATENCY</span>
+          <span class="cv-metric-lbl">Go + Redis API Speedup</span>
+        </div>
+        <div class="cv-metric-card">
+          <span class="cv-metric-val">+45% VELOCITY</span>
+          <span class="cv-metric-lbl">Sprint Reporting Saved</span>
+        </div>
+      </div>
+
+      <!-- Executive Summary -->
+      <section class="cv-section">
+        <h2 class="cv-section-title">Executive Summary</h2>
+        <p class="cv-summary">
+          Results-driven Full-Stack Software Engineer with <strong>3+ years of hands-on production experience</strong>
+          architecting scalable web platforms, high-concurrency microservices, and responsive enterprise dashboards.
+          Proven track record of cutting API response times by up to <strong>60%</strong> and reducing page load latency
+          by <strong>42%</strong> across 10+ production applications using <strong>Golang, PHP (Laravel), Python
+            (Django), Angular, Next.js, MySQL, PostgreSQL, MongoDB, and Redis</strong>.
+        </p>
+      </section>
+
+      <!-- Technical Skills -->
+      <section class="cv-section">
+        <h2 class="cv-section-title">Technical Skills &amp; Architecture Matrix</h2>
+        <div class="cv-skills-grid">
+          <div class="cv-skill-cat">Backend &amp; APIs</div>
+          <div class="cv-skill-items">Golang (Go), PHP (Laravel), Node.js, Python (Django), RESTful APIs, Microservices,
+            WebSockets</div>
+
+          <div class="cv-skill-cat">Frontend &amp; UI</div>
+          <div class="cv-skill-items">Angular, Next.js (App Router / SSR), React, TypeScript, JavaScript (ES6+),
+            Tailwind CSS, Bootstrap</div>
+
+          <div class="cv-skill-cat">Databases &amp; Cache</div>
+          <div class="cv-skill-items">MySQL, PostgreSQL, MongoDB, Redis (In-Memory Caching), Query Indexing &amp; Hybrid
+            Data Modeling</div>
+
+          <div class="cv-skill-cat">DevOps &amp; Delivery</div>
+          <div class="cv-skill-items">Docker, RabbitMQ, GitLab CI/CD, Git, Agile / Scrum, Technical Specs (BRD, FSD, API
+            Contracts)</div>
+        </div>
+      </section>
+
+      <!-- Work Experience -->
+      <section class="cv-section">
+        <h2 class="cv-section-title">Professional Work Experience</h2>
+
+        <div class="cv-entry">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Full-Stack Web Developer</span> &middot;
+              <span class="cv-entry-sub">Venturo Professional Programmer</span>
+            </div>
+            <span class="cv-entry-date">Oct 2023 — Present</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Translate complex business requirements into clear technical specifications (BRD, FSD, and REST API
+              contracts).</li>
+            <li>Architect and maintain high-concurrency backend services while optimizing SQL/NoSQL queries across
+              client and internal products.</li>
+            <li>Lead code reviews, automated testing workflows, and continuous deployment pipelines via GitLab CI/CD.
+            </li>
+          </ul>
+        </div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Frontend Web Developer</span> &middot;
+              <span class="cv-entry-sub">Venturo Professional Programmer</span>
+            </div>
+            <span class="cv-entry-date">Feb 2023 — Sep 2023</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Engineered responsive enterprise SPA modules for logistics, operational tracking, and executive
+              dashboard platforms.</li>
+            <li>Improved Core Web Vitals and reduced initial page load latency by <strong>42%</strong> through route
+              code splitting and lazy loading.</li>
+            <li>Integrated real-time operational tracking updates and interactive data views using WebSocket streams.
+            </li>
+          </ul>
+        </div>
+
+        <div class="cv-entry">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Software Engineer Intern</span> &middot;
+              <span class="cv-entry-sub">Venturo Professional Programmer</span>
+            </div>
+            <span class="cv-entry-date">Aug 2022 — Jan 2023</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Built foundational features for internal Agile project management and daily team productivity web
+              platforms.</li>
+            <li>Developed core modules for the national training &amp; accreditation platform (Sislatkernas) for
+              KOMINFO.</li>
+            <li>Implemented relational and NoSQL data persistence layers across MySQL, PostgreSQL, MongoDB, and Redis.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Selected Projects -->
+      <section class="cv-section">
+        <h2 class="cv-section-title">Selected Production Projects &amp; Key Impact</h2>
+
+        <div class="cv-project-box">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Space — Venturo</span>
+              <span class="cv-entry-sub">[Laravel, Angular, MySQL, MongoDB, Tailwind]</span>
+            </div>
+            <span class="cv-entry-date">space.venturo.id</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Cut weekly sprint reporting overhead by <strong>45%</strong> across 10+ engineering squads &amp; reduced
+              Kanban board load latency by <strong>38%</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="cv-project-box">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Timebox — Venturo</span>
+              <span class="cv-entry-sub">[Laravel, Angular, MySQL, MongoDB, Tailwind]</span>
+            </div>
+            <span class="cv-entry-date">timebox.venturo.id</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Boosted daily task completion rates by <strong>35%</strong> with sub-100ms schedule synchronization and
+              drag-and-drop Angular calendar UI.</li>
+          </ul>
+        </div>
+
+        <div class="cv-project-box">
+          <div class="cv-entry-head">
+            <div>
+              <span class="cv-entry-title">Blessing Academy</span>
+              <span class="cv-entry-sub">[Golang, Next.js, PostgreSQL, Redis, Tailwind]</span>
+            </div>
+            <span class="cv-entry-date">blessing.venturo.pro</span>
+          </div>
+          <ul class="cv-bullets">
+            <li>Slashed course catalog &amp; student progress API latency by <strong>60%</strong> using Go + Redis;
+              automated <strong>100%</strong> of quiz grading &amp; QR certificates.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Education & Certifications -->
+      <div class="cv-two-col">
+        <section class="cv-section">
+          <h2 class="cv-section-title">Education</h2>
+
+          <div class="cv-entry">
+            <div class="cv-entry-head">
+              <span class="cv-entry-title">Institut Asia Malang (S1 IT)</span>
+              <span class="cv-entry-date">Sep 2026 — Present</span>
+            </div>
+            <p class="cv-entry-sub" style="margin-bottom:3px;">Employee Class (Kelas Karyawan) &middot; IT</p>
+            <p style="font-size:12px; color:var(--text-body);">Active undergraduate student majoring in IT while working
+              full-time as a Software Engineer at Venturo.</p>
+          </div>
+
+          <div class="cv-entry">
+            <div class="cv-entry-head">
+              <span class="cv-entry-title">SMK Negeri 11 Malang</span>
+              <span class="cv-entry-date">2020 — 2023</span>
+            </div>
+            <p class="cv-entry-sub" style="margin-bottom:3px;">Rekayasa Perangkat Lunak (RPL / Software Engineering)</p>
+            <p style="font-size:12px; color:var(--text-body);">Completed 3-year vocational specialization in OOP,
+              relational databases, and full-stack web engineering.</p>
+          </div>
+        </section>
+
+        <section class="cv-section">
+          <h2 class="cv-section-title">Licenses &amp; Certifications</h2>
+          <ul class="cv-bullets">
+            <li><strong>BNSP Junior Web Developer Certification</strong> — Badan Nasional Sertifikasi Profesi (2023)
+            </li>
+            <li><strong>Back-End Microservices with Go (Golang)</strong> — Dicoding / Google Developers (2024)</li>
+            <li><strong>Enterprise Full-Stack Laravel &amp; Angular</strong> — Venturo Engineering Academy (2024)</li>
+            <li><strong>SQL, NoSQL &amp; Redis Performance Architecture</strong> — HackerRank / Cloud Native (2025)</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+</body>
+
+</html>
