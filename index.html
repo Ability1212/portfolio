@@ -5785,6 +5785,75 @@
         animation-duration: 90s;
       }
     }
+
+    /* ==========================================================================
+       BACKGROUND MUSIC TOGGLE (animated equalizer while playing)
+       ========================================================================== */
+    .btn-music-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-music-toggle:hover {
+      border-color: var(--border-hover);
+      color: var(--accent-light);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--accent-primary) 30%, transparent);
+    }
+
+    html.music-on .btn-music-toggle {
+      color: var(--accent-light);
+      border-color: var(--border-hover);
+      background: color-mix(in srgb, var(--accent-primary) 14%, transparent);
+    }
+
+    html[data-arch="cyber"] .btn-music-toggle {
+      border-radius: 0;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+    }
+
+    .music-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+    }
+
+    .music-eq i {
+      display: block;
+      width: 3px;
+      height: 14px;
+      background: currentColor;
+      transform-origin: 50% 100%;
+      transform: scaleY(0.25);
+      transition: transform 0.3s ease;
+    }
+
+    html.music-on .music-eq i {
+      animation: musicEq 0.9s ease-in-out infinite;
+    }
+
+    html.music-on .music-eq i:nth-child(2) { animation-duration: 0.7s; animation-delay: -0.2s; }
+    html.music-on .music-eq i:nth-child(3) { animation-duration: 1.1s; animation-delay: -0.5s; }
+    html.music-on .music-eq i:nth-child(4) { animation-duration: 0.8s; animation-delay: -0.35s; }
+
+    @keyframes musicEq {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1); }
+    }
+
+    @media (max-width: 819px) {
+      .btn-music-toggle { width: 36px; height: 36px; }
+    }
   </style>
 </head>
 
@@ -5951,6 +6020,18 @@
         </svg>
       </button>
       <span class="dock-tooltip" id="themeDockTooltip">THEME: DARK</span>
+    </div>
+
+    <div class="dock-divider" aria-hidden="true"></div>
+
+    <!-- 3. Background Music Toggle (procedural darksynth loop) -->
+    <div class="dock-item-wrap">
+      <button type="button" class="btn-music-toggle" id="musicToggleBtn"
+        aria-label="Turn background music on" aria-pressed="false"
+        onclick="toggleBackgroundMusic()">
+        <span class="music-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <span class="dock-tooltip" id="musicDockTooltip">MUSIC: OFF</span>
     </div>
 
     <div class="dock-divider" aria-hidden="true"></div>
@@ -8388,6 +8469,304 @@
     }
 
     /* --------------------------------------------------------------------------
+       0F. PROCEDURAL BACKGROUND MUSIC — original darksynth / cyberpunk drive loop
+       Generated live with Web Audio (no audio files). 132 BPM in D minor:
+       four-on-the-floor kick, sidechained 16th-note octave bass, detuned saw pads,
+       delayed arpeggio, snare fills & noise risers. Cyber mode = brighter & grittier,
+       Standard mode = mellower synthwave. Starts after the intro scan; toggle in dock.
+       -------------------------------------------------------------------------- */
+    const PortfolioMusic = (() => {
+      const BPM = 132;
+      const S16 = 60 / BPM / 4;            // one 16th note in seconds
+      const VOLUME = 0.3;
+      // Dm – Bb – F – C (2 bars each)
+      const CHORDS = [
+        { root: 73.42, pad: [146.83, 174.61, 220.0], arp: [293.66, 349.23, 440.0, 587.33] },
+        { root: 58.27, pad: [116.54, 146.83, 174.61], arp: [233.08, 293.66, 349.23, 466.16] },
+        { root: 87.31, pad: [174.61, 220.0, 261.63], arp: [349.23, 440.0, 523.25, 698.46] },
+        { root: 65.41, pad: [130.81, 164.81, 196.0], arp: [261.63, 329.63, 392.0, 523.25] }
+      ];
+      const BASS_OCT = [0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0];
+      const ARP_SEQ = [0, 1, 2, 3, 2, 1, 2, 3, 0, 2, 1, 3, 2, 3, 1, 2];
+
+      let ctx = null, out = null, duck = null, delaySend = null, noiseBuf = null;
+      let timer = 0, playing = false, nextTime = 0, step = 0, bar = 0;
+
+      const isCyber = () => document.documentElement.getAttribute('data-arch') === 'cyber';
+
+      function build() {
+        ctx = PortfolioSoundEngine.ensureContext();
+        if (!ctx || out) return !!ctx;
+        const comp = ctx.createDynamicsCompressor();
+        comp.threshold.value = -16; comp.ratio.value = 3.5; comp.attack.value = 0.005; comp.release.value = 0.2;
+        comp.connect(ctx.destination);
+        out = ctx.createGain();
+        out.gain.value = 0.0001;
+        out.connect(comp);
+        duck = ctx.createGain();          // sidechain bus for bass + pads
+        duck.connect(out);
+
+        // Dotted-8th stereo-ish feedback delay for the arp
+        delaySend = ctx.createGain();
+        delaySend.gain.value = 0.35;
+        const dl = ctx.createDelay(1);
+        dl.delayTime.value = S16 * 3;
+        const fb = ctx.createGain();
+        fb.gain.value = 0.38;
+        const tone = ctx.createBiquadFilter();
+        tone.type = 'lowpass'; tone.frequency.value = 2600;
+        delaySend.connect(dl); dl.connect(tone); tone.connect(fb); fb.connect(dl); tone.connect(out);
+
+        noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+        const d = noiseBuf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        return true;
+      }
+
+      function env(g, t, peak, attack, decay) {
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(peak, t + attack);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + attack + decay);
+      }
+
+      function noise(t, dur, type, freq, q, peak, decay, dest = out) {
+        const src = ctx.createBufferSource();
+        src.buffer = noiseBuf;
+        const f = ctx.createBiquadFilter();
+        f.type = type; f.frequency.setValueAtTime(freq, t); f.Q.value = q;
+        const g = ctx.createGain();
+        env(g, t, peak, 0.002, decay);
+        src.connect(f); f.connect(g); g.connect(dest);
+        src.start(t, Math.random() * 0.5, dur);
+        return f;
+      }
+
+      function kick(t) {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(155, t);
+        o.frequency.exponentialRampToValueAtTime(44, t + 0.11);
+        env(g, t, 0.95, 0.002, 0.32);
+        o.connect(g); g.connect(out);
+        o.start(t); o.stop(t + 0.36);
+        noise(t, 0.01, 'highpass', 3000, 0.7, 0.12, 0.01);
+        // Sidechain pump
+        duck.gain.cancelScheduledValues(t);
+        duck.gain.setValueAtTime(0.3, t);
+        duck.gain.linearRampToValueAtTime(1, t + S16 * 1.8);
+      }
+
+      function snare(t, level = 1) {
+        noise(t, 0.2, 'bandpass', 1900, 0.6, 0.3 * level, 0.16);
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(200, t);
+        o.frequency.exponentialRampToValueAtTime(150, t + 0.06);
+        env(g, t, 0.16 * level, 0.002, 0.08);
+        o.connect(g); g.connect(out);
+        o.start(t); o.stop(t + 0.1);
+      }
+
+      function hat(t, accent, open) {
+        noise(t, open ? 0.25 : 0.05, 'highpass', 8200, 0.8, (accent ? 0.07 : 0.035) * (isCyber() ? 1 : 0.7), open ? 0.18 : 0.03);
+      }
+
+      function bass(t, freq, cutoff) {
+        const g = ctx.createGain();
+        const f = ctx.createBiquadFilter();
+        f.type = 'lowpass'; f.Q.value = 7;
+        f.frequency.setValueAtTime(cutoff * 3.2, t);
+        f.frequency.exponentialRampToValueAtTime(cutoff, t + 0.09);
+        env(g, t, 0.2, 0.004, S16 * 0.85);
+        [-7, 7].forEach(cents => {
+          const o = ctx.createOscillator();
+          o.type = 'sawtooth';
+          o.frequency.setValueAtTime(freq, t);
+          o.detune.value = cents;
+          o.connect(f);
+          o.start(t); o.stop(t + S16 + 0.02);
+        });
+        f.connect(g); g.connect(duck);
+      }
+
+      function pad(t, notes, dur) {
+        const f = ctx.createBiquadFilter();
+        f.type = 'lowpass';
+        f.frequency.setValueAtTime(isCyber() ? 1700 : 1100, t);
+        f.Q.value = 1;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.05, t + 0.45);
+        g.gain.setValueAtTime(0.05, t + dur - 0.3);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        notes.forEach(n => [-9, 9].forEach(cents => {
+          const o = ctx.createOscillator();
+          o.type = 'sawtooth';
+          o.frequency.setValueAtTime(n, t);
+          o.detune.value = cents;
+          o.connect(f);
+          o.start(t); o.stop(t + dur + 0.05);
+        }));
+        f.connect(g); g.connect(duck);
+      }
+
+      function arp(t, freq) {
+        const o = ctx.createOscillator();
+        const f = ctx.createBiquadFilter();
+        const g = ctx.createGain();
+        o.type = isCyber() ? 'square' : 'triangle';
+        o.frequency.setValueAtTime(freq, t);
+        f.type = 'lowpass'; f.frequency.setValueAtTime(isCyber() ? 3400 : 2200, t);
+        env(g, t, isCyber() ? 0.04 : 0.055, 0.003, 0.11);
+        o.connect(f); f.connect(g); g.connect(out); g.connect(delaySend);
+        o.start(t); o.stop(t + 0.14);
+      }
+
+      function riser(t, dur) {
+        const src = ctx.createBufferSource();
+        src.buffer = noiseBuf; src.loop = true;
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass'; bp.Q.value = 3;
+        bp.frequency.setValueAtTime(300, t);
+        bp.frequency.exponentialRampToValueAtTime(7000, t + dur);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.09, t + dur * 0.95);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur + 0.05);
+        src.connect(bp); bp.connect(g); g.connect(out);
+        src.start(t); src.stop(t + dur + 0.08);
+      }
+
+      // Arrangement: 4-bar intro once, then a 32-bar loop
+      // loop bars: 0-11 groove, 12-23 groove + arp, 24-27 breakdown (pad + arp), 28-31 build-up
+      function section(b) {
+        if (b < 4) return { intro: true };
+        const l = (b - 4) % 32;
+        return {
+          kick: l < 24 || l >= 28,
+          snare: l < 24 || l >= 28,
+          hats16: l < 24 || l >= 30,
+          bass: l < 24 || l >= 28,
+          arp: l >= 12,
+          fill: l % 8 === 7 || l === 31,
+          riser: l === 27 || l === 31 || l === 11,
+          build: l >= 28
+        };
+      }
+
+      function scheduleStep(t) {
+        const pos = step % 16;
+        const s = section(bar);
+        const chord = CHORDS[Math.floor(bar / 2) % 4];
+        const cutoff = isCyber() ? 850 : 480;
+
+        if (pos === 0 && bar % 2 === 0) pad(t, chord.pad, S16 * 32);
+
+        if (s.intro) {
+          if (pos % 2 === 0) bass(t, chord.root * (BASS_OCT[pos] ? 2 : 1), 260 + bar * 90);
+          if (pos % 4 === 2) hat(t, false, false);
+          if (bar === 3 && pos === 0) riser(t, S16 * 16);
+          return;
+        }
+
+        if (s.kick && pos % 4 === 0) kick(t);
+        if (s.snare && (pos === 4 || pos === 12)) snare(t);
+        if (s.fill && pos >= 12) snare(t + 0, 0.35 + (pos - 12) * 0.18);
+        if (s.build && pos % 2 === 1) snare(t, 0.2 + (pos / 16) * 0.3);
+        if (s.hats16) hat(t, pos % 4 === 2, pos % 8 === 6);
+        else if (pos % 4 === 2) hat(t, true, false);
+        if (s.bass) bass(t, chord.root * (BASS_OCT[pos] ? 2 : 1), cutoff);
+        if (s.arp) arp(t, chord.arp[ARP_SEQ[pos]] * (pos >= 8 && bar % 4 === 3 ? 2 : 1));
+        if (s.riser && pos === 0) riser(t, S16 * 16);
+      }
+
+      function scheduler() {
+        if (!ctx) return;
+        while (nextTime < ctx.currentTime + 0.18) {
+          try { scheduleStep(nextTime); } catch (e) { }
+          nextTime += S16;
+          step++;
+          if (step % 16 === 0) bar++;
+        }
+      }
+
+      function start() {
+        if (playing || !build()) return false;
+        if (ctx.state !== 'running') ctx.resume().catch(() => { });
+        playing = true;
+        nextTime = ctx.currentTime + 0.12;
+        const now = ctx.currentTime;
+        out.gain.cancelScheduledValues(now);
+        out.gain.setValueAtTime(Math.max(0.0001, out.gain.value), now);
+        out.gain.exponentialRampToValueAtTime(VOLUME, now + 2.5);
+        clearInterval(timer);
+        timer = setInterval(scheduler, 30);
+        scheduler();
+        return true;
+      }
+
+      function stop(fade = 0.7) {
+        if (!playing || !ctx) return;
+        playing = false;
+        const now = ctx.currentTime;
+        out.gain.cancelScheduledValues(now);
+        out.gain.setValueAtTime(Math.max(0.0001, out.gain.value), now);
+        out.gain.exponentialRampToValueAtTime(0.0001, now + fade);
+        setTimeout(() => { if (!playing) clearInterval(timer); }, fade * 1000 + 50);
+      }
+
+      return { start, stop, isPlaying: () => playing };
+    })();
+
+    function readMusicPref() {
+      try { return localStorage.getItem('portfolio_music') !== 'off'; } catch (e) { return true; }
+    }
+
+    function syncMusicUI() {
+      const on = PortfolioMusic.isPlaying();
+      document.documentElement.classList.toggle('music-on', on);
+      const btn = document.getElementById('musicToggleBtn');
+      if (btn) {
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        const label = on
+          ? (currentLang === 'id' ? 'Matikan musik latar' : 'Turn background music off')
+          : (currentLang === 'id' ? 'Nyalakan musik latar' : 'Turn background music on');
+        btn.setAttribute('aria-label', label);
+        btn.setAttribute('title', label);
+      }
+      const tip = document.getElementById('musicDockTooltip');
+      if (tip) tip.textContent = on ? 'MUSIC: ON' : 'MUSIC: OFF';
+    }
+
+    function toggleBackgroundMusic() {
+      if (PortfolioMusic.isPlaying()) {
+        PortfolioMusic.stop();
+        try { localStorage.setItem('portfolio_music', 'off'); } catch (e) { }
+        if (typeof triggerToastAlert === 'function') triggerToastAlert(currentLang === 'id' ? 'Musik latar dimatikan' : 'Background music off');
+      } else {
+        PortfolioMusic.start();
+        try { localStorage.setItem('portfolio_music', 'on'); } catch (e) { }
+        if (typeof triggerToastAlert === 'function') triggerToastAlert(currentLang === 'id' ? '🎧 Musik latar menyala' : '🎧 Background music on');
+      }
+      syncMusicUI();
+    }
+
+    // Pause while the tab is hidden; resume when back (if it was playing)
+    let musicPausedByVisibility = false;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && PortfolioMusic.isPlaying()) {
+        PortfolioMusic.stop(0.25);
+        musicPausedByVisibility = true;
+      } else if (!document.hidden && musicPausedByVisibility) {
+        musicPausedByVisibility = false;
+        PortfolioMusic.start();
+      }
+      syncMusicUI();
+    });
+
+    /* --------------------------------------------------------------------------
        0D. HOLD-TO-SCAN BIOMETRIC FINGERPRINT INTRO
        Progress only advances while the visitor presses & holds (mouse, touch or
        Space/Enter). Releasing pauses the scan exactly where it is; it launches at 100%.
@@ -8572,6 +8951,9 @@
         }, 920);
       }
       schedule3DScene(1100);
+      if (readMusicPref()) {
+        setTimeout(() => { PortfolioMusic.start(); syncMusicUI(); }, 1400);
+      }
     }
 
     /* --------------------------------------------------------------------------
@@ -8589,7 +8971,7 @@
       const isLight = () => root.getAttribute('data-theme') === 'light';
 
       const LOCKABLE = 'a, button, [role="button"], input, textarea, select, label, .skill-card, .cert-card, .edu-card, .timeline-card, .channel-capsule, .cx-stat, .cx-counter, .cx-reactor';
-      const MAGNETIC = '.cx-btn, .btn-nav-cta, .nav-pill-link, .cx-scroll-orb, .btn-cyber-toggle, .btn-theme-toggle, .btn-lang-toggle, .cx-rail-link, .btn-hero-main, .btn-hero-alt, .btn-dossier-demo, .modal-close-icon-btn';
+      const MAGNETIC = '.cx-btn, .btn-nav-cta, .nav-pill-link, .cx-scroll-orb, .btn-cyber-toggle, .btn-theme-toggle, .btn-music-toggle, .btn-lang-toggle, .cx-rail-link, .btn-hero-main, .btn-hero-alt, .btn-dossier-demo, .modal-close-icon-btn';
       const SPOT = '.skill-category-card, .project-window-card, .timeline-card, .edu-card, .cert-card, .contact-split-box';
       const SCRAMBLE_HOVER = '.nav-pill-link, .cx-rail-lbl, .dossier-title, .browser-url-pill, .cx-foot-code, .log-role-subtitle';
 
@@ -9022,6 +9404,7 @@
         '.btn-lang-toggle',
         '.btn-theme-toggle',
         '.btn-cyber-toggle',
+        '.btn-music-toggle',
         '.mobile-nav-link',
         '.btn-hero-main',
         '.btn-hero-alt',
